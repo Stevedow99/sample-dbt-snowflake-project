@@ -3,6 +3,7 @@
         materialized='insert_into'
     )
 }}
+
 Select
 
 *
