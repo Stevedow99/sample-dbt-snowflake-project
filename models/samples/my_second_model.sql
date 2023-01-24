@@ -1,4 +1,10 @@
-
+{{
+    config(
+        materialized = 'table',
+        schema = 'testing',
+        tags = ['finance']
+    )
+}}
 
 Select 
     *
