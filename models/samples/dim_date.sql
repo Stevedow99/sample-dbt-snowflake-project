@@ -1,4 +1,12 @@
 {{
+    config(
+        materialized = 'table',
+        schema = 'testing',
+        tags = ['finance']
+    )
+}}
+
+{{
 	dbt_utils.date_spine(
 	datepart="day",
 	start_date="to_date('01/01/1996', 'mm/dd/yyyy')",
