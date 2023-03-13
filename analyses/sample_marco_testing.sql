@@ -1,0 +1,1 @@
+{{ load_relation(ref('another_sample_varible_model')) }}

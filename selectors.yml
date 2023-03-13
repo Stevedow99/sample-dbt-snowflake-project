@@ -1,0 +1,19 @@
+selectors:
+  - name: sample_selector
+    description: "Non-incremental Snowplow models that power nightly exports"
+    definition:
+      union:
+        - method: fqn
+          value: stg_tpch_line_items
+        - method: fqn
+          value: stg_tpch_nations
+
+  - name: sample_selector_without_stg_tpch_nations
+    description: "Non-incremental Snowplow models that power nightly exports"
+    definition:
+      intersection:
+        - method: selector
+          value: sample_selector
+        - exclude:
+          - method: fqn
+            value: stg_tpch_nations
