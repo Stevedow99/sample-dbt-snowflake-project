@@ -43,8 +43,11 @@ vars:
   test: 'false' # to trigger runs for unit testing - override in a CLI param in testing job
   fct_order_items: 'mock_source__fct_order_items' # this is a map for unit testing
   'dbt_date:time_zone': 'America/Los_Angeles'
+
+  
   config1:
     name: "test1"
+    something: "test2"
     start_date: "01-01-2023"
 
 

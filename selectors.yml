@@ -4,7 +4,7 @@ selectors:
     definition:
       union:
         - method: fqn
-          value: stg_tpch_line_items
+          value: another_sample_varible_model
         - method: fqn
           value: stg_tpch_nations
 
