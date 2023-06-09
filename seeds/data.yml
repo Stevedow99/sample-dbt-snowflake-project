@@ -10,3 +10,13 @@ seeds:
        description: effective date of contract
      - name: rate
        description: rate based on the effective date
+- name: incoming_snapshot_data_example
+  config:
+        column_types:
+          primary_key: int
+          favorite_animal: varchar(32)
+          datetime_modified: TIMESTAMP_TZ
+  columns:
+    - name: primary_key
+    - name: favorite_animal
+    - name: datetime_modified 
