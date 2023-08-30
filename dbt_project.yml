@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'sample_demo'
+name: 'sample_dbt_snowflake_project'
 version: '1.0.0'
 config-version: 2
 
@@ -60,7 +60,7 @@ vars:
 models:
 
   # setting my project name here
-  sample_demo:
+  sample_dbt_snowflake_project:
 
     # my staging models/staging folder
     staging:
