@@ -3,11 +3,11 @@
     {%- set default_schema = target.schema -%}
     {%- if custom_schema_name is none -%}
 
-        default_schema
+        this_is_always_my_schema
 
     {%- else -%}
 
-        {{ custom_schema_name | trim }}
+        this_is_always_my_schema
 
     {%- endif -%}
 
