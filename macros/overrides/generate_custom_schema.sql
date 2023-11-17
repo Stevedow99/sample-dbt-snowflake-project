@@ -16,7 +16,7 @@
 
         {%- else  -%}
 
-            {{'PRD__' ~  custom_schema_name | trim }}
+            {{'PRD__' ~ default_schema ~ custom_schema_name | trim }}
 
         {%- endif -%}
 
