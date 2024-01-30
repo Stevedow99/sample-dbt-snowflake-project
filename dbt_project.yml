@@ -40,16 +40,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   start_date: '1999-01-01'
-  test: 'false' # to trigger runs for unit testing - override in a CLI param in testing job
+  test:  "{{ env_var('DBT_SOME_VALUE') }}"
   fct_order_items: 'mock_source__fct_order_items' # this is a map for unit testing
   'dbt_date:time_zone': 'America/Los_Angeles'
-
-  
-  config1:
-    name: "test1"
-    something: "test2"
-    start_date: "01-01-2023"
-
+  force_error: 'false'
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -66,11 +60,12 @@ models:
     staging:
       +materialized: view
       +schema: staging
+      +database: "{{ 'DEV_STAGING' if env_var('DBT_ENV_NAME') == 'DEV' else 'TST_STAGING' if env_var('DBT_ENV_NAME') == 'TST' else 'PRD_STAGING' if env_var('DBT_ENV_NAME') == 'PRD' else none }}"
 
     marts:
       core:
         +materialized: table
-        +schema: core_analytics
+        +schema: "{{ env_var('DBT_SOME_VALUE') }}"
       aggregates:
         +materialized: table
         +schema: aggregate_tables
