@@ -43,6 +43,7 @@ vars:
   test:  "{{ env_var('DBT_SOME_VALUE') }}"
   fct_order_items: 'mock_source__fct_order_items' # this is a map for unit testing
   'dbt_date:time_zone': 'America/Los_Angeles'
+  force_error: 'false'
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
