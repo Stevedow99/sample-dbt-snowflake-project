@@ -16,6 +16,10 @@
     {% elif env_var("DBT_ENV_NAME") == 'DEV' %}
 
         {{ table_name }}
+
+    {% else %}
+
+        {{ table_name }}
         
     {%- endif -%}
 {%- endmacro %}
