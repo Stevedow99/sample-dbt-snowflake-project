@@ -65,7 +65,6 @@ models:
     marts:
       core:
         +materialized: table
-        +schema: "{{ env_var('DBT_SOME_VALUE') }}"
       aggregates:
         +materialized: table
         +schema: aggregate_tables
