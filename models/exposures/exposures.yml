@@ -2,7 +2,6 @@ version: 2
 
 exposures:
   - name: company_sales_dashboard
-    tags: ['finance', 'RevOps']
     description: |
       # Company Sales Dashboard
 
@@ -12,21 +11,23 @@ exposures:
         * track monthly sales
         * understand company performance
         * find outlier months
-    
+
     # type could be {dashboard, notebook, analysis, ml, application}
-    type: dashboard 
-    
+    type: dashboard
+
     # this is just a link to the thing itself for click through from documentation
     url: https://app.mode.com/dbt_labs_mode_tutorials/reports/f30ea875263d
-    
+
     # convenience feature - relative scale of {high, medium, low}
     maturity: high
-    
+
     # documentation purposes for point of contact if stuff breaks
     owner:
       name: Steve Dowling
       email: steve.dowling@dbtlabs.com
-    
+
     # IMPORTANT: determines the lineage relationship of the exposure construct to the rest of your DAGs
     depends_on:
       - ref('monthly_gross_revenue')
+    config:
+      tags: ['finance', 'RevOps']
