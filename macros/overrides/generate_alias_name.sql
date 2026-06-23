@@ -6,16 +6,17 @@
         {%- set table_name = custom_alias_name | trim -%}
     {%- endif -%}
 
-    {% if env_var("DBT_ENV_NAME") in ('PRD', 'CI') %}
-    
-        {#- Get the custom schema name -#}
-        {%- set schema_prefix = node.unrendered_config.schema | trim %}
+    {%- set env_name = env_var('DBT_ENV_NAME', target.name) | lower -%}
+    {%- set custom_schema = node.unrendered_config.get('schema') if node is not none and node.unrendered_config is not none else none -%}
 
-        {{ schema_prefix ~ "__" ~ table_name }}
+    {% if env_name in ('prd', 'prod', 'production', 'ci') and custom_schema is not none %}
 
-    {% elif env_var("DBT_ENV_NAME") == 'DEV' %}
+        {{ custom_schema | trim ~ "__" ~ table_name }}
+
+    {% else %}
 
         {{ table_name }}
-        
+
     {%- endif -%}
+
 {%- endmacro %}
