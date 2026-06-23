@@ -1,6 +1,5 @@
 version: 2
 
-
 sources:
   - name: tpch
     description: Welcome to the dbt Labs demo dbt project! We use the [TPCH dataset](https://docs.snowflake.com/en/user-guide/sample-data-tpch.html) to create a sample project to emulate what a production project might look like!
@@ -9,24 +8,26 @@ sources:
     tables:
       - name: orders
         description: main order tracking table
-        freshness: # make this a warning as this is static data
-          warn_after: {count: 6, period: hour}
-          # error_after: {count: 12, period: hour}
-        loaded_at_field: o_orderdate::timestamp
-        
+        config:
+          freshness: # make this a warning as this is static data
+            warn_after: {count: 6, period: hour}
+            # error_after: {count: 12, period: hour}
+          loaded_at_field: o_orderdate::timestamp
+
         columns:
           - name: o_orderkey
             description: SF*1,500,000 are sparsely populated
-            tests: 
+            data_tests:
               - unique
               - not_null
-                  
+
           - name: o_custkey
             description: Foreign Key to C_CUSTKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'customer')
-                  field: c_custkey
+                  arguments:
+                    to: source('tpch', 'customer')
+                    field: c_custkey
           - name: o_orderstatus
             description: status code of the order
           - name: o_totalprice
@@ -41,13 +42,13 @@ sources:
             description: numeric representation of the shipping priority, zero being the default
           - name: o_comment
             description: '{{ doc("comment") }}'
-          
+
       - name: customer
         description: main customer table
         columns:
           - name: c_custkey
             description: unique customer key
-            tests:
+            data_tests:
               - unique:
                   severity: warn
               - not_null:
@@ -61,7 +62,7 @@ sources:
           - name: c_phone
             description: phone number of the customer
           - name: c_acctbal
-            description: raw account balance 
+            description: raw account balance
           - name: c_mktsegment
             description: market segment of the customer
           - name: c_comment
@@ -72,22 +73,25 @@ sources:
         columns:
           - name: l_orderkey
             description: Foreign Key to O_ORDERKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'orders')
-                  field: o_orderkey
+                  arguments:
+                    to: source('tpch', 'orders')
+                    field: o_orderkey
           - name: l_partkey
-            description:  Foreign key to P_PARTKEY, first part of the compound Foreign Key to (PS_PARTKEY,PS_SUPPKEY) with L_SUPPKEY
-            tests:
+            description: Foreign key to P_PARTKEY, first part of the compound Foreign Key to (PS_PARTKEY,PS_SUPPKEY) with L_SUPPKEY
+            data_tests:
               - relationships:
-                  to: source('tpch', 'part')
-                  field: p_partkey
+                  arguments:
+                    to: source('tpch', 'part')
+                    field: p_partkey
           - name: l_suppkey
             description: Foreign key to S_SUPPKEY, second part of the compound Foreign Key to (PS_PARTKEY, PS_SUPPKEY) with L_PARTKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'supplier')
-                  field: s_suppkey
+                  arguments:
+                    to: source('tpch', 'supplier')
+                    field: s_suppkey
           - name: l_linenumber
             description: sequence of the order items within the order
           - name: l_quantity
@@ -120,7 +124,7 @@ sources:
         columns:
           - name: n_nationkey
             description: 25 nations are populated
-            tests:
+            data_tests:
               - unique:
                   severity: warn
               - not_null:
@@ -129,10 +133,11 @@ sources:
             description: nation name
           - name: n_regionkey
             description: Foreign Key to R_REGIONKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'region')
-                  field: r_regionkey
+                  arguments:
+                    to: source('tpch', 'region')
+                    field: r_regionkey
           - name: n_comment
             description: '{{ doc("comment") }}'
 
@@ -141,7 +146,7 @@ sources:
         columns:
           - name: p_partkey
             description: SF*200,000 are populated
-            tests:
+            data_tests:
               - unique:
                   severity: warn
               - not_null:
@@ -168,20 +173,22 @@ sources:
         columns:
           - name: ps_partkey
             description: Foreign Key to P_PARTKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'part')
-                  field: p_partkey
+                  arguments:
+                    to: source('tpch', 'part')
+                    field: p_partkey
           - name: ps_suppkey
             description: Foreign Key to S_SUPPKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'supplier')
-                  field: s_suppkey
+                  arguments:
+                    to: source('tpch', 'supplier')
+                    field: s_suppkey
           - name: ps_availqty
             description: raw available quantity
           - name: ps_supplycost
-            description: raw cost 
+            description: raw cost
           - name: ps_comment
             description: '{{ doc("comment") }}'
 
@@ -190,7 +197,7 @@ sources:
         columns:
           - name: r_regionkey
             description: 5 regions are populated
-            tests:
+            data_tests:
               - unique:
                   severity: warn
               - not_null:
@@ -205,7 +212,7 @@ sources:
         columns:
           - name: s_suppkey
             description: SF*10,000 are populated
-            tests:
+            data_tests:
               - unique:
                   severity: warn
               - not_null:
@@ -216,10 +223,11 @@ sources:
             description: address of the supplier
           - name: s_nationkey
             description: Foreign Key to N_NATIONKEY
-            tests:
+            data_tests:
               - relationships:
-                  to: source('tpch', 'nation')
-                  field: n_nationkey
+                  arguments:
+                    to: source('tpch', 'nation')
+                    field: n_nationkey
           - name: s_phone
             description: phone number of the supplier
           - name: s_acctbal
