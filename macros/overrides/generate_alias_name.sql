@@ -17,7 +17,7 @@
        If that variable doesn't exist, fall back to the profile's 'target.name'.
        Convert everything to lowercase to ensure matching isn't broken by case sensitivity.
     #}
-    {%- set env_name = env_var('DBT_ENV_NAME') | lower -%}
+    {%- set env_name = env_var('DBT_ENV_NAME') | upper -%}
     
     {# 
        3. CONDITIONAL ROUTING BASED ON ENVIRONMENT
