@@ -1,7 +1,8 @@
 {{
     config(
         database='awesome_database',
-        schema='awesome_schema'
+        schema='awesome_schema',
+        alias='awesome_table'
     )
 }}
 
